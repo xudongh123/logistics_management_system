@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.logistics.mapper.DriverMapper">
+    <select id="getDrivers" resultType="com.company.logistics.model.Driver">
+        SELECT * FROM driverTable
+        WHERE token = #{token}
+        ORDER BY time DESC
+        OFFSET #{offset} ROWS
+        FETCH NEXT #{pageSize} ROWS ONLY
+    </select>
+    <insert id="addDriver" parameterType="com.company.logistics.model.Driver">
+        INSERT INTO driverTable (name, sex, phone, bankAddr, bankNumber, isSms, idCard, email, hometown, token, time)
+        VALUES (#{name}, #{sex}, #{phone}, #{bankAddr}, #{bankNumber}, #{isSms}, #{idCard}, #{email}, #{hometown}, #{token}, #{time})
+    </insert>
+</mapper>
