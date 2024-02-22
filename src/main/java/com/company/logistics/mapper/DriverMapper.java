@@ -1,6 +1,5 @@
 package com.company.logistics.mapper;
 
-import com.company.logistics.controller.dto.SetDriverRequest;
 import com.company.logistics.model.Driver;
 import org.apache.ibatis.annotations.Mapper;
 
