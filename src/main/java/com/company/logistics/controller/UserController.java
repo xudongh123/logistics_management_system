@@ -1,12 +1,11 @@
 package com.company.logistics.controller;
 
+import com.company.logistics.controller.dto.user.*;
 import com.company.logistics.model.User;
 import com.company.logistics.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -17,13 +16,39 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public List<User> findAllUsers() {
-        return userService.findAllUsers();
+    @PostMapping("/v1/user/company/loginex")
+    public User login(@RequestBody LoginRequest loginRequest) {
+        return userService.findByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
     }
 
-//    @GetMapping("/v1/user/customer/ex/info")
-//    public User findUsersInfo() {
-//        return userService.findUser();
-//    }
+    @GetMapping("/user/list")
+    public GetUserResponse findAllUsers(@RequestParam("offset") int offset, @RequestParam("pageSize") int pageSize) {
+        return userService.findAllUsers(offset, pageSize);
+    }
+
+    @PostMapping("/user/add")
+    public int addUser(@RequestBody AddUserRequest addUserRequest) {
+        return userService.addUser(addUserRequest);
+    }
+
+    @DeleteMapping("/user/delete/{token}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("token") String token) {
+        userService.deleteUser(token);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/v1/user/customer/ex/info")
+    public User findUsersInfo(@RequestParam("token") String token) {
+        return userService.findUser(token);
+    }
+
+    @PostMapping("/v1/user/customer/info")
+    public int updateUser(@RequestBody UpdateUserRequest updateUserRequest) {
+        return userService.updateUser(updateUserRequest);
+    }
+
+    @PostMapping("/v1/user/customer/password")
+    public int updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
+        return userService.updatePassword(updatePasswordRequest);
+    }
 }

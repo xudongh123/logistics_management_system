@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.company.logistics.mapper.AccountMapper">
-    <select id="findByUsernameAndPassword" resultType="com.company.logistics.model.Account">
-        SELECT * FROM accountTable WHERE Username = #{username} AND Password = #{password}
+<mapper namespace="com.company.logistics.mapper.UserMapper">
+    <select id="findByUsernameAndPassword" resultType="com.company.logistics.model.User">
+        SELECT * FROM userTable WHERE Username = #{username} AND Password = #{password}
     </select>
 
-    <select id="getUsers" resultType="com.company.logistics.model.Account">
-        SELECT * FROM accountTable
+    <select id="getUsers" resultType="com.company.logistics.model.User">
+        SELECT * FROM userTable
         ORDER BY time DESC
         OFFSET #{offset} ROWS
             FETCH NEXT #{pageSize} ROWS ONLY
     </select>
 
     <select id="countUsers" resultType="int">
-        SELECT COUNT(*) FROM accountTable
+        SELECT COUNT(*) FROM userTable
     </select>
 
-    <insert id="addAccount" parameterType="com.company.logistics.model.Account">
-        INSERT INTO accountTable (token, username, password, permissionLevel, nickname, sex, time)
+    <insert id="addUser" parameterType="com.company.logistics.model.User">
+        INSERT INTO userTable (token, username, password, permissionLevel, nickname, sex, time)
         VALUES (#{token}, #{username}, #{password}, #{permissionLevel}, #{nickname}, #{sex}, #{time})
     </insert>
 
-    <delete id="deleteAccount" parameterType="String">
-        DELETE FROM accountTable
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM userTable
         WHERE token = #{token}
     </delete>
 
-    <select id="findUser" resultType="com.company.logistics.model.Account">
-        SELECT * FROM accountTable WHERE token = #{token}
+    <select id="findUser" resultType="com.company.logistics.model.User">
+        SELECT * FROM userTable WHERE token = #{token}
     </select>
 
-    <update id="updateAccount" parameterType="com.company.logistics.model.Account">
-        UPDATE accountTable
+    <update id="updateUser" parameterType="com.company.logistics.model.User">
+        UPDATE userTable
         SET nickname = #{nickname}, sex = #{sex}
         WHERE token = #{token}
     </update>
 
-    <update id="updatePassword" parameterType="com.company.logistics.model.Account">
-        UPDATE accountTable
+    <update id="updatePassword" parameterType="com.company.logistics.model.User">
+        UPDATE usertTable
         SET password = #{password}
         WHERE token = #{token}
     </update>

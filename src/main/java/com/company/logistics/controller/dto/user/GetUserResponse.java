@@ -1,19 +1,19 @@
 package com.company.logistics.controller.dto.user;
 
-import com.company.logistics.model.Account;
+import com.company.logistics.model.User;
 
 import java.util.List;
 
 public class GetUserResponse {
-    private List<Account> item;
+    private List<User> item;
     private int total;
 
     // getters and setters
-    public List<Account> getItem() {
+    public List<User> getItem() {
         return item;
     }
 
-    public void setItem(List<Account> item) {
+    public void setItem(List<User> item) {
         this.item = item;
     }
 
