@@ -13,6 +13,10 @@
             FETCH NEXT #{pageSize} ROWS ONLY
     </select>
 
+    <select id="countUsers" resultType="int">
+        SELECT COUNT(*) FROM accountTable
+    </select>
+
     <insert id="addAccount" parameterType="com.company.logistics.model.Account">
         INSERT INTO accountTable (token, username, password, permissionLevel, nickname, sex, time)
         VALUES (#{token}, #{username}, #{password}, #{permissionLevel}, #{nickname}, #{sex}, #{time})

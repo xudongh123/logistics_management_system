@@ -23,7 +23,11 @@ public class DriverService {
     public GetDriverResponse getDrivers(String token, int offset, int pageSize) {
         List<Driver> drivers = driverMapper.getDrivers(token, offset, pageSize);
         GetDriverResponse response = new GetDriverResponse();
+
+        int count = driverMapper.countDrivers(token);
+
         response.setItem(drivers);
+        response.setTotal(count);
         return response;
     }
 

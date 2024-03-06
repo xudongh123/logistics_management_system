@@ -1,19 +1,19 @@
-package com.company.logistics.controller.dto.profit;
+package com.company.logistics.controller.dto.user;
 
-import com.company.logistics.model.Profit;
+import com.company.logistics.model.Account;
 
 import java.util.List;
 
-public class GetProfitResponse {
-    private List<Profit> item;
+public class GetUserResponse {
+    private List<Account> item;
     private int total;
 
     // getters and setters
-    public List<Profit> getItem() {
+    public List<Account> getItem() {
         return item;
     }
 
-    public void setItem(List<Profit> item) {
+    public void setItem(List<Account> item) {
         this.item = item;
     }
 

@@ -1,10 +1,7 @@
 package com.company.logistics.controller;
 
-import com.company.logistics.controller.dto.user.AddUserRequest;
-import com.company.logistics.controller.dto.user.LoginRequest;
+import com.company.logistics.controller.dto.user.*;
 import com.company.logistics.controller.dto.driver.SetDriverRequest;
-import com.company.logistics.controller.dto.user.UpdatePasswordRequest;
-import com.company.logistics.controller.dto.user.UpdateUserRequest;
 import com.company.logistics.model.Account;
 import com.company.logistics.model.User;
 import com.company.logistics.service.AccountService;
@@ -29,7 +26,7 @@ public class AccountController {
     }
 
     @GetMapping("/user/list")
-    public List<Account> findAllUsers(@RequestParam("offset") int offset, @RequestParam("pageSize") int pageSize) {
+    public GetUserResponse findAllUsers(@RequestParam("offset") int offset, @RequestParam("pageSize") int pageSize) {
         return accountService.findAllUsers(offset, pageSize);
     }
 

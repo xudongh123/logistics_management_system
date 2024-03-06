@@ -1,8 +1,10 @@
 package com.company.logistics.service;
 
+import com.company.logistics.controller.dto.driver.GetDriverResponse;
 import com.company.logistics.controller.dto.driver.SetDriverRequest;
 import com.company.logistics.controller.dto.profit.UpdatePayRequest;
 import com.company.logistics.controller.dto.user.AddUserRequest;
+import com.company.logistics.controller.dto.user.GetUserResponse;
 import com.company.logistics.controller.dto.user.UpdatePasswordRequest;
 import com.company.logistics.controller.dto.user.UpdateUserRequest;
 import com.company.logistics.mapper.AccountMapper;
@@ -41,8 +43,14 @@ public class AccountService {
         return account;
     }
 
-    public List<Account> findAllUsers(int offset, int pageSize) {
-        return accountMapper.getUsers(offset, pageSize);
+    public GetUserResponse findAllUsers(int offset, int pageSize) {
+        List<Account> accounts = accountMapper.getUsers(offset, pageSize);
+        GetUserResponse response = new GetUserResponse();
+
+        int count = accountMapper.countUsers();
+        response.setItem(accounts);
+        response.setTotal(count);
+        return response;
     }
 
     public int addUser(AddUserRequest addUserRequest) {

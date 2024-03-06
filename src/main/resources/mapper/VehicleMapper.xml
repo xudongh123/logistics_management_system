@@ -9,6 +9,10 @@
         OFFSET #{offset} ROWS
             FETCH NEXT #{pageSize} ROWS ONLY
     </select>
+    <select id="countVehicles" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM vehicleTable
+        WHERE token = #{token}
+    </select>
     <insert id="addVehicle" parameterType="com.company.logistics.model.Vehicle" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO vehicleTable (plate, type, resource, twoPlate, driverPhone, driverName, energy, length, weight, vin, brand, engine, axle, wheelbase, tire, factoryTime, buyTime, buyPrice, limitedTime, remark, token, time)
         VALUES (#{plate}, #{type}, #{resource}, #{twoPlate}, #{driverPhone}, #{driverName}, #{energy}, #{length}, #{weight}, #{vin}, #{brand}, #{engine}, #{axle}, #{wheelbase}, #{tire}, #{factoryTime}, #{buyTime}, #{buyPrice}, #{limitedTime}, #{remark}, #{token}, #{time})

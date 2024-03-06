@@ -23,8 +23,10 @@ public class VehicleService {
     public GetVehicleResponse getVehicles(String token, int offset, int pageSize) {
         List<Vehicle> drivers = vehicleMapper.getVehicles(token, offset, pageSize);
         GetVehicleResponse response = new GetVehicleResponse();
+
+        int count = vehicleMapper.countVehicles(token);
         response.setItem(drivers);
-        response.setTotal(drivers.size());
+        response.setTotal(count);
         return response;
     }
 

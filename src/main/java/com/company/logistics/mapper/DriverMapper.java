@@ -9,6 +9,8 @@ import java.util.List;
 public interface DriverMapper {
     List<Driver> getDrivers(String token, int offset, int pageSize);
 
+    int countDrivers(String token);
+
     int addDriver(Driver driver);
 
     void deleteDriver(int id);

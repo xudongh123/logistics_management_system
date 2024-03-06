@@ -12,6 +12,7 @@ import java.util.Map;
 public interface OrderMapper {
     List<Order> getOrders(String token, int offset, int pageSize);
     Order getOrder(String id);
+    int countOrders(String token);
     int countOrdersByTokenAndStatus(String token, String status);
     //List<Map<String, Object>> countOrdersPastSevenDays(String token, String status);;
     int countOrdersByDateTokenAndStatus(String token, String status, Date time);

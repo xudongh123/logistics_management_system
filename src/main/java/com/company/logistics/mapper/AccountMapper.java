@@ -13,6 +13,7 @@ import java.util.List;
 public interface AccountMapper {
     Account findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
     List<Account> getUsers(int offset, int pageSize);
+    int countUsers();
     int addAccount(Account account);
     void deleteAccount(String token);
     Account findUser(String token);

@@ -21,6 +21,11 @@
         VALUES (#{id}, #{orderNumber}, #{status}, #{sendName}, #{sendPhone}, #{sendAddr}, #{sendAddrInfo}, #{receiveName}, #{receivePhone}, #{receiveAddr}, #{receiveAddrInfo}, #{dispatchingType}, #{sendTime}, #{receiveTime}, #{isCompany}, #{token}, #{time})
     </insert>
 
+    <select id="countOrders" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM orderTable
+        WHERE token = #{token}
+    </select>
+
     <select id="countOrdersByTokenAndStatus" parameterType="com.company.logistics.model.Order" resultType="int">
         SELECT COUNT(*) FROM orderTable
         WHERE token = #{token}

@@ -28,9 +28,11 @@ public class OrderService {
 
     public GetOrderResponse getOrders(String token, int offset, int pageSize) {
         List<Order> orders = orderMapper.getOrders(token, offset, pageSize);
-
+        int count = orderMapper.countOrders(token);
         GetOrderResponse response = new GetOrderResponse();
         response.setItem(orders);
+        response.setTotal(count);
+
         return response;
     }
 

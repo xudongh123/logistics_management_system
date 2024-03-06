@@ -9,6 +9,10 @@
         OFFSET #{offset} ROWS
             FETCH NEXT #{pageSize} ROWS ONLY
     </select>
+    <select id="countProfits" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM profitTable
+        WHERE token = #{token}
+    </select>
     <insert id="addProfit" parameterType="com.company.logistics.model.Profit">
         INSERT INTO profitTable (id, receive, receiveNow, isReceive, pay, payNow, isPay, token)
         VALUES (#{id}, #{receive}, #{receiveNow}, #{isReceive}, #{pay}, #{payNow}, #{isPay}, #{token})

@@ -9,6 +9,8 @@ import java.util.List;
 public interface VehicleMapper {
     List<Vehicle> getVehicles(String token, int offset, int pageSize);
 
+    int countVehicles(String token);
+
     int addVehicle(Vehicle vehicle);
 
     void deleteVehicle(int id);

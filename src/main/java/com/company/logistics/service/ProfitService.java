@@ -21,8 +21,13 @@ public class ProfitService {
 
     public GetProfitResponse getProfits(String token, int offset, int pageSize) {
         List<Profit> orders = profitMapper.getProfits(token, offset, pageSize);
+
+        int count = profitMapper.countProfits(token);
+
+
         GetProfitResponse response = new GetProfitResponse();
         response.setItem(orders);
+        response.setTotal(count);
         return response;
     }
 

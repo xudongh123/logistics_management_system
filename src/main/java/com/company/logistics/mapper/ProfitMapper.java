@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface ProfitMapper {
     List<Profit> getProfits(String token, int offset, int pageSize);
-
+    int countProfits(String token);
     int addProfit(Profit profit);
 
     int updateReceive(Profit profit);
