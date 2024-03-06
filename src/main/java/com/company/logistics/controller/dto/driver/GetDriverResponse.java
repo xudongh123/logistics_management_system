@@ -1,4 +1,4 @@
-package com.company.logistics.controller.dto;
+package com.company.logistics.controller.dto.driver;
 
 import com.company.logistics.model.Driver;
 

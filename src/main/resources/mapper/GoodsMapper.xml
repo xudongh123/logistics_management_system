@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.logistics.mapper.GoodsMapper">
+    <select id="getGoods" resultType="com.company.logistics.model.Goods">
+        SELECT * FROM goodsTable
+        WHERE id = #{id}
+    </select>
+
+    <insert id="addGoods" parameterType="com.company.logistics.model.Goods">
+        INSERT INTO goodsTable (id, name, weight, size, number, remark)
+        VALUES (#{id}, #{name}, #{weight}, #{size}, #{number}, #{remark})
+    </insert>
+</mapper>

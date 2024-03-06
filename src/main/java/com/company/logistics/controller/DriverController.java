@@ -1,9 +1,10 @@
 package com.company.logistics.controller;
 
-import com.company.logistics.controller.dto.GetDriverResponse;
-import com.company.logistics.controller.dto.SetDriverRequest;
+import com.company.logistics.controller.dto.driver.GetDriverResponse;
+import com.company.logistics.controller.dto.driver.SetDriverRequest;
 import com.company.logistics.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,5 +27,11 @@ public class DriverController {
     @PostMapping("/v1/fleet/driver/ex")
     public int setDrivers(@RequestBody SetDriverRequest setDriverRequest) {
         return driverService.addDriver(setDriverRequest);
+    }
+
+    @DeleteMapping("/v1/fleet/driver/{id}")
+    public ResponseEntity<Void> deleteDriver(@PathVariable("id") int id) {
+        driverService.deleteDriver(id);
+        return ResponseEntity.noContent().build();
     }
 }

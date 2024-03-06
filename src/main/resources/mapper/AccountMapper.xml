@@ -5,5 +5,38 @@
     <select id="findByUsernameAndPassword" resultType="com.company.logistics.model.Account">
         SELECT * FROM accountTable WHERE Username = #{username} AND Password = #{password}
     </select>
+
+    <select id="getUsers" resultType="com.company.logistics.model.Account">
+        SELECT * FROM accountTable
+        ORDER BY time DESC
+        OFFSET #{offset} ROWS
+            FETCH NEXT #{pageSize} ROWS ONLY
+    </select>
+
+    <insert id="addAccount" parameterType="com.company.logistics.model.Account">
+        INSERT INTO accountTable (token, username, password, permissionLevel, nickname, sex, time)
+        VALUES (#{token}, #{username}, #{password}, #{permissionLevel}, #{nickname}, #{sex}, #{time})
+    </insert>
+
+    <delete id="deleteAccount" parameterType="String">
+        DELETE FROM accountTable
+        WHERE token = #{token}
+    </delete>
+
+    <select id="findUser" resultType="com.company.logistics.model.Account">
+        SELECT * FROM accountTable WHERE token = #{token}
+    </select>
+
+    <update id="updateAccount" parameterType="com.company.logistics.model.Account">
+        UPDATE accountTable
+        SET nickname = #{nickname}, sex = #{sex}
+        WHERE token = #{token}
+    </update>
+
+    <update id="updatePassword" parameterType="com.company.logistics.model.Account">
+        UPDATE accountTable
+        SET password = #{password}
+        WHERE token = #{token}
+    </update>
 </mapper>
 

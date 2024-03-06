@@ -10,4 +10,6 @@ public interface DriverMapper {
     List<Driver> getDrivers(String token, int offset, int pageSize);
 
     int addDriver(Driver driver);
+
+    void deleteDriver(int id);
 }

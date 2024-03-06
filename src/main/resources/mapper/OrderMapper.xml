@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.logistics.mapper.OrderMapper">
+
+    <select id="getOrders" resultType="com.company.logistics.model.Order">
+        SELECT * FROM orderTable
+        WHERE token = #{token}
+        ORDER BY id DESC
+        OFFSET #{offset} ROWS
+            FETCH NEXT #{pageSize} ROWS ONLY
+    </select>
+
+    <select id="getOrder" resultType="com.company.logistics.model.Order">
+        SELECT * FROM orderTable
+        WHERE id = #{id}
+    </select>
+
+    <insert id="addOrder" parameterType="com.company.logistics.model.Order">
+        INSERT INTO orderTable (id, orderNumber, status, sendName, sendPhone, sendAddr, sendAddrInfo, receiveName, receivePhone, receiveAddr, receiveAddrInfo, dispatchingType, sendTime, receiveTime, isCompany, token, time)
+        VALUES (#{id}, #{orderNumber}, #{status}, #{sendName}, #{sendPhone}, #{sendAddr}, #{sendAddrInfo}, #{receiveName}, #{receivePhone}, #{receiveAddr}, #{receiveAddrInfo}, #{dispatchingType}, #{sendTime}, #{receiveTime}, #{isCompany}, #{token}, #{time})
+    </insert>
+
+    <select id="countOrdersByTokenAndStatus" parameterType="com.company.logistics.model.Order" resultType="int">
+        SELECT COUNT(*) FROM orderTable
+        WHERE token = #{token}
+          AND status = #{status}
+    </select>
+
+    <select id="countOrdersByDateTokenAndStatus" resultType="int">
+        SELECT COUNT(*) FROM orderTable
+        WHERE
+            CAST(time AS DATE) = #{time}
+          AND token = #{token}
+          AND status = #{status}
+    </select>
+
+    <update id="updateOrderStatus" parameterType="com.company.logistics.model.Order">
+        UPDATE orderTable
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
+
+<!--    <select id="countOrdersPastSevenDays" resultType="map">-->
+<!--        SELECT-->
+<!--            CAST(time AS DATE) as orderDate,-->
+<!--            COUNT(*) as orderCount-->
+<!--        FROM-->
+<!--            orderTable-->
+<!--        WHERE-->
+<!--            token = #{token}-->
+<!--          AND status = #{status}-->
+<!--          AND time >= CAST(GETDATE() - 7 AS DATE)-->
+<!--        GROUP BY-->
+<!--            CAST(time AS DATE)-->
+<!--        ORDER BY-->
+<!--            orderDate ASC-->
+<!--    </select>-->
+</mapper>

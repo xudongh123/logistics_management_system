@@ -3,8 +3,8 @@ package com.company.logistics.service;
 import java.util.Date;
 import java.util.List;
 
-import com.company.logistics.controller.dto.GetDriverResponse;
-import com.company.logistics.controller.dto.SetDriverRequest;
+import com.company.logistics.controller.dto.driver.GetDriverResponse;
+import com.company.logistics.controller.dto.driver.SetDriverRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.company.logistics.mapper.DriverMapper;
@@ -43,5 +43,9 @@ public class DriverService {
         Date now = new Date();
         driver.setTime(now);
         return driverMapper.addDriver(driver);
+    }
+
+    public void deleteDriver(int id) {
+        driverMapper.deleteDriver(id);
     }
 }

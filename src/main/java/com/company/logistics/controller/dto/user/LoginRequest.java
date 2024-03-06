@@ -1,4 +1,4 @@
-package com.company.logistics.controller.dto;
+package com.company.logistics.controller.dto.user;
 
 public class LoginRequest {
     private String username;

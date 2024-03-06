@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.logistics.mapper.VehicleMapper">
+    <select id="getVehicles" resultType="com.company.logistics.model.Vehicle">
+        SELECT * FROM vehicleTable
+        WHERE token = #{token}
+        ORDER BY time DESC
+        OFFSET #{offset} ROWS
+            FETCH NEXT #{pageSize} ROWS ONLY
+    </select>
+    <insert id="addVehicle" parameterType="com.company.logistics.model.Vehicle" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO vehicleTable (plate, type, resource, twoPlate, driverPhone, driverName, energy, length, weight, vin, brand, engine, axle, wheelbase, tire, factoryTime, buyTime, buyPrice, limitedTime, remark, token, time)
+        VALUES (#{plate}, #{type}, #{resource}, #{twoPlate}, #{driverPhone}, #{driverName}, #{energy}, #{length}, #{weight}, #{vin}, #{brand}, #{engine}, #{axle}, #{wheelbase}, #{tire}, #{factoryTime}, #{buyTime}, #{buyPrice}, #{limitedTime}, #{remark}, #{token}, #{time})
+    </insert>
+    <delete id="deleteVehicle" parameterType="int">
+        DELETE FROM vehicleTable
+        WHERE id = #{id}
+    </delete>
+</mapper>
