@@ -6,7 +6,7 @@
     <select id="getOrders" resultType="com.company.logistics.model.Order">
         SELECT * FROM orderTable
         WHERE token = #{token}
-        ORDER BY id DESC
+        ORDER BY time DESC
         OFFSET #{offset} ROWS
             FETCH NEXT #{pageSize} ROWS ONLY
     </select>
@@ -45,20 +45,4 @@
         SET status = #{status}
         WHERE id = #{id}
     </update>
-
-<!--    <select id="countOrdersPastSevenDays" resultType="map">-->
-<!--        SELECT-->
-<!--            CAST(time AS DATE) as orderDate,-->
-<!--            COUNT(*) as orderCount-->
-<!--        FROM-->
-<!--            orderTable-->
-<!--        WHERE-->
-<!--            token = #{token}-->
-<!--          AND status = #{status}-->
-<!--          AND time >= CAST(GETDATE() - 7 AS DATE)-->
-<!--        GROUP BY-->
-<!--            CAST(time AS DATE)-->
-<!--        ORDER BY-->
-<!--            orderDate ASC-->
-<!--    </select>-->
 </mapper>

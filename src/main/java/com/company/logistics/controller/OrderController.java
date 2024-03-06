@@ -19,51 +19,45 @@ public class OrderController {
         this.orderService = orderService;
         this.profitService = profitService;
     }
-    @GetMapping("/v1/order/count/company/all")
+    @GetMapping("/order/count")
     public Map<String, Integer> countOrdersByToken(@RequestParam("token") String token) {
 
         return orderService.countOrdersByToken(token);
     }
-    @GetMapping("/v1/order/count/company/order/day7")
+    @GetMapping("/order/count/7day")
     public Map<String, Object> countOrdersPastSevenDays(@RequestParam("token") String token) {
 
         return orderService.countOrdersPastSevenDays(token);
     }
-    @GetMapping("/v1/order/page/company")
+    @GetMapping("/order/list")
     public GetOrderResponse getOrders(@RequestParam("offset") int offset,
                                        @RequestParam("pageSize") int pageSize,
                                        @RequestParam("token") String token) {
 
         return orderService.getOrders(token, offset, pageSize);
     }
-    @GetMapping("/v1/order/{id}")
+    @GetMapping("/order/{id}")
     public Map<String, Object> getOrder(@PathVariable String id) {
         return orderService.getOrder(id);
     }
-    @PostMapping("/v1/order/customer")
+    @PostMapping("/order/add")
     public int addOrder(@RequestBody SetOrderRequest setOrderRequest) {
         //profitService.addProfit(setOrderRequest, randomUUIDString);
 
         return orderService.addOrder(setOrderRequest);
     }
-    @PostMapping("/v1/order/taking")
+    @PostMapping("/order/taking")
     public int takingOrder(@RequestBody TakingOrderRequest takingOrderRequest) {
         return orderService.takingOrder(takingOrderRequest);
     }
 
-    @PostMapping("/v1/order/sign")
+    @PostMapping("/order/sign")
     public int signOrder(@RequestBody SignOrderRequest signOrderRequest) {
         return orderService.signOrder(signOrderRequest);
     }
 
-    @PostMapping("/v1/order/customer/refuse")
+    @PostMapping("/order/refuse")
     public int refuseOrder(@RequestBody RefuseOrderRequest refuseOrderRequest) {
         return orderService.refuseOrder(refuseOrderRequest);
     }
-//
-//    @DeleteMapping("/v1/fleet/driver/{id}")
-//    public ResponseEntity<Void> deleteDriver(@PathVariable("id") int id) {
-//        driverService.deleteDriver(id);
-//        return ResponseEntity.noContent().build();
-//    }
 }

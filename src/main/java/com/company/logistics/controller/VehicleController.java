@@ -16,7 +16,7 @@ public class VehicleController {
         this.vehicleService = vehicleService;
     }
 
-    @GetMapping("/v1/fleet/car/ex/page")
+    @GetMapping("/car/list")
     public GetVehicleResponse getVehicles(@RequestParam("offset") int offset,
                                          @RequestParam("pageSize") int pageSize,
                                          @RequestParam("token") String token) {
@@ -24,12 +24,12 @@ public class VehicleController {
         return vehicleService.getVehicles(token, offset, pageSize);
     }
 
-    @PostMapping("/v1/fleet/car")
+    @PostMapping("/car/add")
     public int setDrivers(@RequestBody SetVehicleRequest setVehicleRequest) {
         return vehicleService.addVehicle(setVehicleRequest);
     }
 
-    @DeleteMapping("/v1/fleet/car/{id}")
+    @DeleteMapping("/car/delete/{id}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable("id") int id) {
         vehicleService.deleteVehicle(id);
         return ResponseEntity.noContent().build();

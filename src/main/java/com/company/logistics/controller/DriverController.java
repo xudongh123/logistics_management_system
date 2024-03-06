@@ -16,7 +16,7 @@ public class DriverController {
         this.driverService = driverService;
     }
 
-    @GetMapping("/v1/fleet/driver/ex/page")
+    @GetMapping("/driver/list")
     public GetDriverResponse getDrivers(@RequestParam("offset") int offset,
                                         @RequestParam("pageSize") int pageSize,
                                         @RequestParam("token") String token) {
@@ -24,12 +24,12 @@ public class DriverController {
         return driverService.getDrivers(token, offset, pageSize);
     }
 
-    @PostMapping("/v1/fleet/driver/ex")
+    @PostMapping("/driver/add")
     public int setDrivers(@RequestBody SetDriverRequest setDriverRequest) {
         return driverService.addDriver(setDriverRequest);
     }
 
-    @DeleteMapping("/v1/fleet/driver/{id}")
+    @DeleteMapping("/driver/delete/{id}")
     public ResponseEntity<Void> deleteDriver(@PathVariable("id") int id) {
         driverService.deleteDriver(id);
         return ResponseEntity.noContent().build();

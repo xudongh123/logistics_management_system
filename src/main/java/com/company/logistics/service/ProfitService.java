@@ -1,5 +1,6 @@
 package com.company.logistics.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.company.logistics.controller.dto.profit.GetProfitResponse;
@@ -42,6 +43,9 @@ public class ProfitService {
         profit.setReceiveNow(0);
         profit.setIsReceive(false);
         profit.setToken(token);
+
+        Date now = new Date();
+        profit.setTime(now);
 
         return profitMapper.addProfit(profit);
     }

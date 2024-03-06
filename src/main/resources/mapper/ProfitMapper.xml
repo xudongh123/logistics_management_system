@@ -5,7 +5,7 @@
     <select id="getProfits" resultType="com.company.logistics.model.Profit">
         SELECT * FROM profitTable
         WHERE token = #{token}
-        ORDER BY id DESC
+        ORDER BY time DESC
         OFFSET #{offset} ROWS
             FETCH NEXT #{pageSize} ROWS ONLY
     </select>
@@ -14,8 +14,8 @@
         WHERE token = #{token}
     </select>
     <insert id="addProfit" parameterType="com.company.logistics.model.Profit">
-        INSERT INTO profitTable (id, receive, receiveNow, isReceive, pay, payNow, isPay, token)
-        VALUES (#{id}, #{receive}, #{receiveNow}, #{isReceive}, #{pay}, #{payNow}, #{isPay}, #{token})
+        INSERT INTO profitTable (id, receive, receiveNow, isReceive, pay, payNow, isPay, token, time)
+        VALUES (#{id}, #{receive}, #{receiveNow}, #{isReceive}, #{pay}, #{payNow}, #{isPay}, #{token}, #{time})
     </insert>
     <update id="updateReceive" parameterType="com.company.logistics.model.Profit">
         UPDATE profitTable

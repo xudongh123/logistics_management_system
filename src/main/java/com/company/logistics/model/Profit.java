@@ -1,5 +1,7 @@
 package com.company.logistics.model;
 
+import java.util.Date;
+
 public class Profit {
 
     private String id;
@@ -10,7 +12,7 @@ public class Profit {
     private double payNow;
     private boolean isPay;
     private String token;
-
+    private Date time;
     // Getters
     public String getId() {
         return id;
@@ -39,8 +41,13 @@ public class Profit {
     public boolean getIsPay() {
         return isPay;
     }
+
     public String getToken() {
         return token;
+    }
+
+    public Date getTime() {
+        return time;
     }
 
     // Setters
@@ -73,5 +80,8 @@ public class Profit {
     }
     public void setToken(String token) {
         this.token = token;
+    }
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

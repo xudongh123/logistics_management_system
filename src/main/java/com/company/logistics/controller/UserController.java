@@ -16,7 +16,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/v1/user/company/loginex")
+    @PostMapping("/login")
     public User login(@RequestBody LoginRequest loginRequest) {
         return userService.findByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
     }
@@ -37,17 +37,17 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/v1/user/customer/ex/info")
+    @GetMapping("/user/info")
     public User findUsersInfo(@RequestParam("token") String token) {
         return userService.findUser(token);
     }
 
-    @PostMapping("/v1/user/customer/info")
+    @PostMapping("/user/info")
     public int updateUser(@RequestBody UpdateUserRequest updateUserRequest) {
         return userService.updateUser(updateUserRequest);
     }
 
-    @PostMapping("/v1/user/customer/password")
+    @PostMapping("/user/password")
     public int updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
         return userService.updatePassword(updatePasswordRequest);
     }

@@ -16,7 +16,7 @@ public class ProfitController {
         this.profitService = profitService;
     }
 
-    @GetMapping("/v1/profit/page")
+    @GetMapping("/profit/list")
     public GetProfitResponse getOrders(@RequestParam("offset") int offset,
                                       @RequestParam("pageSize") int pageSize,
                                       @RequestParam("token") String token) {
@@ -24,7 +24,7 @@ public class ProfitController {
         return profitService.getProfits(token, offset, pageSize);
     }
 
-    @PostMapping("/v1/profit/receive/{id}")
+    @PostMapping("/profit/receive/{id}")
     public int updateReceive(@RequestBody UpdateReceiveRequest updateReceiveRequest, @PathVariable String id) {
         return profitService.updateReceive(updateReceiveRequest, id);
     }
@@ -33,10 +33,5 @@ public class ProfitController {
     public int updatePay(@RequestBody UpdatePayRequest updatePayRequest, @PathVariable String id) {
         return profitService.updatePay(updatePayRequest, id);
     }
-//
-//    @DeleteMapping("/v1/fleet/driver/{id}")
-//    public ResponseEntity<Void> deleteDriver(@PathVariable("id") int id) {
-//        driverService.deleteDriver(id);
-//        return ResponseEntity.noContent().build();
-//    }
+
 }
