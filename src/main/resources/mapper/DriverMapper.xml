@@ -2,24 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.logistics.mapper.DriverMapper">
+    <!-- 获取司机列表 -->
     <select id="getDrivers" resultType="com.company.logistics.model.Driver">
         SELECT * FROM driverTable
         WHERE token = #{token}
         ORDER BY time DESC
         OFFSET #{offset} ROWS
-        FETCH NEXT #{pageSize} ROWS ONLY
+            FETCH NEXT #{pageSize} ROWS ONLY
     </select>
+
+    <!-- 统计司机数量 -->
     <select id="countDrivers" parameterType="String" resultType="int">
         SELECT COUNT(*) FROM driverTable
         WHERE token = #{token}
     </select>
+
+    <!-- 添加司机 -->
     <insert id="addDriver" parameterType="com.company.logistics.model.Driver" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO driverTable (name, sex, phone, bankAddr, bankNumber, isSms, idCard, email, hometown, token, time)
         VALUES (#{name}, #{sex}, #{phone}, #{bankAddr}, #{bankNumber}, #{isSms}, #{idCard}, #{email}, #{hometown}, #{token}, #{time})
     </insert>
+
+    <!-- 删除司机 -->
     <delete id="deleteDriver" parameterType="int">
         DELETE FROM driverTable
         WHERE id = #{id}
     </delete>
 </mapper>
-

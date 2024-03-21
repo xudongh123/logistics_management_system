@@ -6,6 +6,7 @@ import com.company.logistics.model.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+// 标识为Service组件，用于业务逻辑处理
 @Service
 public class GoodsService {
     private final GoodsMapper goodsMapper;
@@ -15,16 +16,17 @@ public class GoodsService {
         this.goodsMapper = goodsMapper;
     }
 
+    // 添加货物信息
     public int addGoods(SetOrderRequest.GoodsRequest goodsRequest, String randomUUIDString) {
         Goods goods = new Goods();
 
-        goods.setId(randomUUIDString);
-        goods.setNumber(goodsRequest.getNumber());
-        goods.setRemark(goodsRequest.getRemark());
-        goods.setSize(goodsRequest.getSize());
-        goods.setName(goodsRequest.getName());
-        goods.setWeight(goodsRequest.getWeight());
+        goods.setId(randomUUIDString);  // 设置货物ID
+        goods.setNumber(goodsRequest.getNumber());  // 设置货物数量
+        goods.setRemark(goodsRequest.getRemark());  // 设置备注
+        goods.setSize(goodsRequest.getSize());  // 设置尺寸
+        goods.setName(goodsRequest.getName());  // 设置货物名称
+        goods.setWeight(goodsRequest.getWeight());  // 设置重量
 
-        return goodsMapper.addGoods(goods);
+        return goodsMapper.addGoods(goods);  // 调用Mapper添加货物信息
     }
 }

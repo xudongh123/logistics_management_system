@@ -13,26 +13,26 @@ import com.company.logistics.model.Profit;
 
 @Service
 public class ProfitService {
-    private final ProfitMapper profitMapper;
+    private final ProfitMapper profitMapper; // 利润映射器
 
     @Autowired
     public ProfitService(ProfitMapper profitMapper) {
         this.profitMapper = profitMapper;
     }
 
+    // 获取利润列表
     public GetProfitResponse getProfits(String token, int offset, int pageSize) {
-        List<Profit> orders = profitMapper.getProfits(token, offset, pageSize);
-
+        List<Profit> profits = profitMapper.getProfits(token, offset, pageSize);
         int count = profitMapper.countProfits(token);
 
-
         GetProfitResponse response = new GetProfitResponse();
-        response.setItem(orders);
+        response.setItem(profits);
         response.setTotal(count);
         return response;
     }
 
-    public  int addProfit(String id, int pay, int receive, String token) {
+    // 添加利润记录
+    public int addProfit(String id, int pay, int receive, String token) {
         Profit profit = new Profit();
 
         profit.setId(id);
@@ -50,14 +50,17 @@ public class ProfitService {
         return profitMapper.addProfit(profit);
     }
 
-    public  int updateReceive(UpdateReceiveRequest updateReceiveRequest, String id) {
+    // 更新收款信息
+    public int updateReceive(UpdateReceiveRequest updateReceiveRequest, String id) {
         Profit profit = new Profit();
         profit.setId(id);
         profit.setReceiveNow(updateReceiveRequest.getReceive());
         profit.setIsReceive(updateReceiveRequest.getIsReceive());
         return profitMapper.updateReceive(profit);
     }
-    public  int updatePay(UpdatePayRequest updatePayRequest, String id) {
+
+    // 更新付款信息
+    public int updatePay(UpdatePayRequest updatePayRequest, String id) {
         Profit profit = new Profit();
         profit.setId(id);
         profit.setPayNow(updatePayRequest.getPay());

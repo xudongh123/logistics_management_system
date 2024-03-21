@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.logistics.mapper.VehicleMapper">
+
+    <!-- 获取车辆列表 -->
     <select id="getVehicles" resultType="com.company.logistics.model.Vehicle">
         SELECT * FROM vehicleTable
         WHERE token = #{token}
@@ -9,14 +11,20 @@
         OFFSET #{offset} ROWS
             FETCH NEXT #{pageSize} ROWS ONLY
     </select>
+
+    <!-- 统计车辆数量 -->
     <select id="countVehicles" parameterType="String" resultType="int">
         SELECT COUNT(*) FROM vehicleTable
         WHERE token = #{token}
     </select>
+
+    <!-- 添加车辆记录 -->
     <insert id="addVehicle" parameterType="com.company.logistics.model.Vehicle" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO vehicleTable (plate, type, resource, twoPlate, driverPhone, driverName, energy, length, weight, vin, brand, engine, axle, wheelbase, tire, factoryTime, buyTime, buyPrice, limitedTime, remark, token, time)
         VALUES (#{plate}, #{type}, #{resource}, #{twoPlate}, #{driverPhone}, #{driverName}, #{energy}, #{length}, #{weight}, #{vin}, #{brand}, #{engine}, #{axle}, #{wheelbase}, #{tire}, #{factoryTime}, #{buyTime}, #{buyPrice}, #{limitedTime}, #{remark}, #{token}, #{time})
     </insert>
+
+    <!-- 删除车辆记录 -->
     <delete id="deleteVehicle" parameterType="int">
         DELETE FROM vehicleTable
         WHERE id = #{id}

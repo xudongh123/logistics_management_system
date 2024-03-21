@@ -15,24 +15,26 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-    private final UserMapper userMapper;
+    private final UserMapper userMapper; // 用户映射器
 
     @Autowired
     public UserService(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
+    // 根据用户名和密码查找用户
     public User findByUsernameAndPassword(String username, String password) {
         User user = userMapper.findByUsernameAndPassword(username, password);
 
         if(user == null) {
-            System.out.println("No account found with the provided username and password.");
-            throw new RuntimeException("No account found with the provided username and password.");
+            System.out.println("未找到提供的用户名和密码对应的帐户。");
+            throw new RuntimeException("未找到提供的用户名和密码对应的帐户。");
         }
 
         return user;
     }
 
+    // 查找所有用户
     public GetUserResponse findAllUsers(int offset, int pageSize) {
         List<User> users = userMapper.getUsers(offset, pageSize);
         GetUserResponse response = new GetUserResponse();
@@ -43,6 +45,7 @@ public class UserService {
         return response;
     }
 
+    // 添加用户
     public int addUser(AddUserRequest addUserRequest) {
         UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString();
@@ -61,14 +64,17 @@ public class UserService {
         return userMapper.addUser(user);
     }
 
+    // 删除用户
     public void deleteUser(String token) {
         userMapper.deleteUser(token);
     }
 
+    // 根据token查找用户
     public User findUser(String token) {
         return userMapper.findUser(token);
     }
 
+    // 更新用户信息
     public int updateUser(UpdateUserRequest updateUserRequest) {
         User user = new User();
         user.setNickname(updateUserRequest.getNickname());
@@ -77,6 +83,7 @@ public class UserService {
         return userMapper.updateUser(user);
     }
 
+    // 更新用户密码
     public int updatePassword(UpdatePasswordRequest updatePasswordRequest) {
         User user = new User();
         user.setPassword(updatePasswordRequest.getNewPassword());

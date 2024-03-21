@@ -3,6 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.logistics.mapper.OrderMapper">
 
+    <!-- 获取订单列表 -->
     <select id="getOrders" resultType="com.company.logistics.model.Order">
         SELECT * FROM orderTable
         WHERE token = #{token}
@@ -11,27 +12,32 @@
             FETCH NEXT #{pageSize} ROWS ONLY
     </select>
 
+    <!-- 根据订单ID获取订单信息 -->
     <select id="getOrder" resultType="com.company.logistics.model.Order">
         SELECT * FROM orderTable
         WHERE id = #{id}
     </select>
 
+    <!-- 添加订单 -->
     <insert id="addOrder" parameterType="com.company.logistics.model.Order">
         INSERT INTO orderTable (id, orderNumber, status, sendName, sendPhone, sendAddr, sendAddrInfo, receiveName, receivePhone, receiveAddr, receiveAddrInfo, dispatchingType, sendTime, receiveTime, isCompany, token, time)
         VALUES (#{id}, #{orderNumber}, #{status}, #{sendName}, #{sendPhone}, #{sendAddr}, #{sendAddrInfo}, #{receiveName}, #{receivePhone}, #{receiveAddr}, #{receiveAddrInfo}, #{dispatchingType}, #{sendTime}, #{receiveTime}, #{isCompany}, #{token}, #{time})
     </insert>
 
+    <!-- 统计订单数量 -->
     <select id="countOrders" parameterType="String" resultType="int">
         SELECT COUNT(*) FROM orderTable
         WHERE token = #{token}
     </select>
 
+    <!-- 根据token和状态统计订单数量 -->
     <select id="countOrdersByTokenAndStatus" parameterType="com.company.logistics.model.Order" resultType="int">
         SELECT COUNT(*) FROM orderTable
         WHERE token = #{token}
           AND status = #{status}
     </select>
 
+    <!-- 根据日期、token和状态统计订单数量 -->
     <select id="countOrdersByDateTokenAndStatus" resultType="int">
         SELECT COUNT(*) FROM orderTable
         WHERE
@@ -40,6 +46,7 @@
           AND status = #{status}
     </select>
 
+    <!-- 更新订单状态 -->
     <update id="updateOrderStatus" parameterType="com.company.logistics.model.Order">
         UPDATE orderTable
         SET status = #{status}

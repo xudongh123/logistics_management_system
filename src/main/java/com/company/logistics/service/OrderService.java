@@ -13,10 +13,10 @@ import com.company.logistics.model.Order;
 @Service
 public class OrderService {
 
-    private final OrderMapper orderMapper;
-    private final GoodsMapper goodsMapper;
-    private final ProfitService profitService;
-    private final GoodsService goodsService;
+    private final OrderMapper orderMapper; // 订单映射器
+    private final GoodsMapper goodsMapper; // 商品映射器
+    private final ProfitService profitService; // 利润服务
+    private final GoodsService goodsService; // 商品服务
 
     @Autowired
     public OrderService(OrderMapper orderMapper, GoodsMapper goodsMapper, ProfitService profitService, GoodsService goodsService) {
@@ -26,6 +26,7 @@ public class OrderService {
         this.goodsService = goodsService;
     }
 
+    // 获取订单列表
     public GetOrderResponse getOrders(String token, int offset, int pageSize) {
         List<Order> orders = orderMapper.getOrders(token, offset, pageSize);
         int count = orderMapper.countOrders(token);
@@ -36,6 +37,7 @@ public class OrderService {
         return response;
     }
 
+    // 获取单个订单详情
     public Map<String, Object> getOrder(String id) {
         Map<String, Object> result = new HashMap<>();
         Order order = orderMapper.getOrder(id);
@@ -45,6 +47,7 @@ public class OrderService {
         return result;
     }
 
+    // 根据token统计不同状态的订单数量
     public Map<String, Integer> countOrdersByToken(String token) {
         // 定义一个Map来存储每种状态的订单总数，这次使用更具体的键名
         Map<String, Integer> statusCounts = new HashMap<>();
@@ -70,6 +73,7 @@ public class OrderService {
         return statusCounts;
     }
 
+    // 统计近7天订单数量
     public Map<String, Object> countOrdersPastSevenDays(String token) {
         Map<String, Object> result = new HashMap<>();
 
@@ -96,6 +100,7 @@ public class OrderService {
         return result;
     }
 
+    // 获取近7天日期列表
     private static List<Date> get7DayDates() {
         List<Date> dates = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -113,16 +118,15 @@ public class OrderService {
         return dates;
     }
 
+    // 添加订单
     public int addOrder(SetOrderRequest orderRequest) {
         UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString();
-        //===============================
+
         for (SetOrderRequest.GoodsRequest goodsRequest : orderRequest.getGoods()) {
             goodsService.addGoods(goodsRequest, randomUUIDString);
         }
 
-
-        //===============================
         Order order = new Order();
 
         order.setId(randomUUIDString);
@@ -145,9 +149,9 @@ public class OrderService {
         order.setTime(now);
 
         return orderMapper.addOrder(order);
-
     }
 
+    // 接受订单
     public int takingOrder(TakingOrderRequest takingOrderRequest) {
         Order order = new Order();
         order.setId(takingOrderRequest.getId());
@@ -156,6 +160,7 @@ public class OrderService {
         return profitService.addProfit(takingOrderRequest.getId(), takingOrderRequest.getPay(), takingOrderRequest.getReceive(), takingOrderRequest.getToken());
     }
 
+    // 签收订单
     public int signOrder(SignOrderRequest signOrderRequest) {
         Order order = new Order();
         order.setId(signOrderRequest.getId());
@@ -163,6 +168,7 @@ public class OrderService {
         return orderMapper.updateOrderStatus(order);
     }
 
+    // 拒绝订单
     public int refuseOrder(RefuseOrderRequest refuseOrderRequest) {
         Order order = new Order();
         order.setId(refuseOrderRequest.getId());

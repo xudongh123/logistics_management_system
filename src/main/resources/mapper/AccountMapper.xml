@@ -2,10 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.logistics.mapper.UserMapper">
+    <!-- 根据用户名和密码查找用户 -->
     <select id="findByUsernameAndPassword" resultType="com.company.logistics.model.User">
         SELECT * FROM userTable WHERE Username = #{username} AND Password = #{password}
     </select>
 
+    <!-- 获取用户列表 -->
     <select id="getUsers" resultType="com.company.logistics.model.User">
         SELECT * FROM userTable
         ORDER BY time DESC
@@ -13,34 +15,39 @@
             FETCH NEXT #{pageSize} ROWS ONLY
     </select>
 
+    <!-- 统计用户数量 -->
     <select id="countUsers" resultType="int">
         SELECT COUNT(*) FROM userTable
     </select>
 
+    <!-- 添加用户 -->
     <insert id="addUser" parameterType="com.company.logistics.model.User">
         INSERT INTO userTable (token, username, password, permissionLevel, nickname, sex, time)
         VALUES (#{token}, #{username}, #{password}, #{permissionLevel}, #{nickname}, #{sex}, #{time})
     </insert>
 
+    <!-- 删除用户 -->
     <delete id="deleteUser" parameterType="String">
         DELETE FROM userTable
         WHERE token = #{token}
     </delete>
 
+    <!-- 查找用户信息 -->
     <select id="findUser" resultType="com.company.logistics.model.User">
         SELECT * FROM userTable WHERE token = #{token}
     </select>
 
+    <!-- 更新用户信息 -->
     <update id="updateUser" parameterType="com.company.logistics.model.User">
         UPDATE userTable
         SET nickname = #{nickname}, sex = #{sex}
         WHERE token = #{token}
     </update>
 
+    <!-- 更新用户密码 -->
     <update id="updatePassword" parameterType="com.company.logistics.model.User">
-        UPDATE usertTable
+        UPDATE userTable
         SET password = #{password}
         WHERE token = #{token}
     </update>
 </mapper>
-
